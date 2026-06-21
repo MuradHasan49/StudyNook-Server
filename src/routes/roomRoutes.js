@@ -17,7 +17,7 @@ router.route('/')
 router.get('/latest', getLatestRooms);
 
 router.route('/:id')
-  .get(getRoomById)
+  .get(protect, getRoomById)
   .put(protect, updateRoom)
   .delete(protect, deleteRoom);
 

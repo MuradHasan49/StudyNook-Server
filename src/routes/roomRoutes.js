@@ -1,12 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const { 
-  createRoom, 
-  getRooms, 
-  getLatestRooms, 
-  getRoomById, 
-  updateRoom, 
-  deleteRoom 
+const {
+  createRoom,
+  getRooms,
+  getLatestRooms,
+  getRoomById,
+  updateRoom,
+  deleteRoom
 } = require('../controllers/roomController');
 const { protect } = require('../middleware/authMiddleware');
 

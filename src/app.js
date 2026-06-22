@@ -12,16 +12,28 @@ const app = express();
 
 // Security and utility middlewares
 app.use(helmet());
-app.use(cors({
+
+const allowedOrigins = [
+  'http://localhost:3000',
+  'https://study-nook-gold.vercel.app'
+];
+
+const corsOptions = {
   origin: function (origin, callback) {
-    if (!origin || /^https?:\/\/localhost(:\d+)?$/.test(origin) || origin === process.env.CLIENT_URL) {
+    if (!origin || allowedOrigins.includes(origin) || origin === process.env.CLIENT_URL) {
       callback(null, true);
     } else {
       callback(new Error('Not allowed by CORS'));
     }
   },
-  credentials: true, // Allow cookies to be sent across origins
-}));
+  credentials: true,
+  methods: ['GET', 'POST', 'PUT', 'PATCH', 'DELETE', 'OPTIONS'],
+  allowedHeaders: ['Content-Type', 'Authorization']
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+
 app.use(express.json());
 app.use(cookieParser());
 
